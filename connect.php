@@ -6,10 +6,35 @@ function connect() {
     return $connection;
 }
 function create($table, $data) {
-
     $pdo = connect();
 
-    $query = "INSERT INTO {$table}() VALUES ";
+    if(!is_array($data)) {
+        $data = (array) $data;
+    }
 
-    return $pdo;
+    $sql = "INSERT INTO {$table}";
+    $sql .= "(" . implode(',', array_keys($data)) . ")";
+    $sql .= " VALUES(" . ':' . implode(',:', array_keys($data)) . ")";
+
+    $insert = $pdo->prepare($sql);
+    $success = $insert->execute($data);
+
+    if (!$success)
+        return false;
+
+    $result = find($table, 'id', $pdo->lastInsertId());
+
+    return $result;
+}
+
+function find($table, $field, $value) {
+    $pdo = connect();
+
+    $sql = "SELECT * FROM {$table} WHERE {$field} = :{$field}";
+
+    $find = $pdo->prepare($sql);
+    $find->bindValue($field, $value);
+    $find->execute();
+
+    return $find->fetch();
 }
