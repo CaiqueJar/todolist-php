@@ -1,5 +1,11 @@
+<?php
+
+require "connect.php";
+$tasks = all('tasks');
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +17,17 @@
     <button id="btn-create">Cadastrar tarefa</button>
     <hr>
     <ul>
-        <li>
-            <input type="checkbox">
-            <span>Tarefa 1</span>
-        </li>
+        <?php foreach($tasks as $task): ?>
+            <?php $done = $task->status == 2 ? 'done' : '' ?>
+            <li class="status <?= $done ?>" id="status-<?= $task->id ?>">
+                <?php if($done == 'done'): ?>
+                    <input type="checkbox" id="check-task-<?= $task->id ?>" class="check-task-done" value="<?= $task->id ?>" checked>
+                <?php else: ?>
+                    <input type="checkbox" id="check-task-<?= $task->id ?>" class="check-task-done" value="<?= $task->id ?>">
+                <?php endif; ?>
+                <label for="check-task-<?= $task->id ?>"><?= $task->task ?></label>
+            </li>
+        <?php endforeach; ?>
     </ul>
 
     <div class="modal create" id="modal-create">
@@ -32,13 +45,26 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let btnCreate = document.getElementById('btn-create');
-
-            btnCreate.addEventListener('click', function() {
-                let modalCreate = document.getElementById('modal-create');
-                modalCreate.classList.toggle("active");
+        $(document).ready(function() {
+            $('#btn-create').click(function() {
+                $('#modal-create').toggleClass("active");
+            });
+            $('.check-task-done').change(function() {
+                let task_id = $(this).val();
+                 $.ajax({
+                    type: "POST",
+                    url: "check_task.php",
+                    data: {task_id: task_id},
+                    success: function(response){
+                        let task = JSON.parse(response);
+                        $('#status-'+task['id']).toggleClass('done');
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
             });
         });
     </script>

@@ -19,3 +19,6 @@ div.modal .modal-content {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+li.status.done {
+    text-decoration: line-through;
+}

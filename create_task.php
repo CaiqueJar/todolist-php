@@ -2,9 +2,15 @@
 
 require "connect.php";
 
-var_dump(create('asd', ['name' => 'teste', 'idade' => 12]));
-die();
-
 if(isset($_POST['submit'])) {
     $task = filter_var($_POST['task'], FILTER_SANITIZE_STRING);
+    $status = 1;
+
+    $item = create('tasks', [
+        'task' => $task,
+        'status' => $status,
+    ]);
+
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit();
 }
