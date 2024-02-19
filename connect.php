@@ -88,3 +88,11 @@ function all($table, $where = null, $operator = '=', $value = null) {
 
     return $stmt->fetchAll();
 }
+function delete($table, $field, $id) {
+    $pdo = connect();
+
+    $sql = "DELETE FROM {$table} WHERE {$field} = :{$field}";
+    $delete = $pdo->prepare($sql);
+    $delete->bindValue($field, $id);
+    return $delete->execute();
+}

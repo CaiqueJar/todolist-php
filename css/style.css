@@ -1,8 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 div.modal {
     position: absolute;
     display: none;
     width: 100vw;
     height: 100vh;
+    top: 0;
+    left: 0;
 }
 div.modal.active {
     display: block;
@@ -11,7 +18,6 @@ div.modal .overlay {
     background-color: rgba(0, 0, 0, 0.808);
     width: 100%;
     height: 100%;
-    position: absolute;
 }
 div.modal .modal-content {
     position: absolute;
@@ -19,6 +25,6 @@ div.modal .modal-content {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-li.status.done {
+label.status.done {
     text-decoration: line-through;
 }
