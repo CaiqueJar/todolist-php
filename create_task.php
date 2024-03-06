@@ -8,12 +8,14 @@ if(isset($_POST['submit'])) {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
     }
-    
+
     $status = 1;
+    $priority = find('priorities', 'priority', 'Normal');
 
     $item = create('tasks', [
         'task' => $task,
         'status' => $status,
+        'id_priority' => $priority->id
     ]);
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);

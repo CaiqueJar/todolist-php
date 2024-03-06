@@ -88,6 +88,14 @@ function all($table, $where = null, $operator = '=', $value = null) {
 
     return $stmt->fetchAll();
 }
+function orderBy($table, $order, $operation = '', $value = '') {
+    $pdo = connect();
+
+    $sql = "SELECT * FROM {$table} ORDER BY {$order} {$operation} {$value}";
+    $orderBy = $pdo->prepare($sql);
+    $orderBy->execute();
+    return $orderBy->fetchAll();
+}
 function delete($table, $field, $id) {
     $pdo = connect();
 

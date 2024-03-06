@@ -1,7 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+    --white: #f2f2f2;
+    --black: #151515;
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(302deg, #0093E9 0%, #80D0C7 100%);
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+}
+.btn {
+    background-color: gray;
+    color: white;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+.btn.btn-primary {
+    background-color: blue;
+}
+.btn.btn-success {
+    background-color: green;
+}
+.btn.btn-danger {
+    background-color: red;
 }
 div.modal {
     position: absolute;
@@ -24,7 +59,117 @@ div.modal .modal-content {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 22px #1b1b1bba;
 }
-label.status.done {
+label {
+    position: relative;
+}
+label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+label input.active {
+    display: block;
+}
+label.done {
     text-decoration: line-through;
+}
+.priority {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 4px 2px;
+}
+.priority-1 {
+    color: red;
+}
+.priority-2 {
+    color: orange;
+}
+.priority-3 {
+    color: green;
+}
+main {
+    padding: 20px;
+    border-radius: 12px;
+    width: 640px;
+    margin: auto;
+}
+main h1 {
+    font-weight: 500;
+    color: #ececec;
+    font-size: 3rem;
+    text-align: center;
+}
+main .tasks-list {
+    list-style: none;
+}
+main .tasks-list li {
+    background: #ececec;
+    padding: 6px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px #d1d1d1;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+main .tasks-list li .options .priorities-button {
+    position: relative;
+}
+main .tasks-list li .options .priorities-button .tooltip {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    display: flex;
+    gap: 6px;
+    font-size: 0.5rem;
+    background: #141414;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 50px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .2s ease;
+}
+main .tasks-list li .options .priorities-button .tooltip .priority:hover {
+    cursor: pointer;
+}
+main .tasks-list li .options .priorities-button.active .tooltip {
+    top: -100%;
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+div.input {
+    position: relative;
+    margin: 20px 0;
+}
+div.input input[type="text"]{
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+}
+div.input input[type="submit"]{
+    position: absolute;
+    height: 100%;
+    right: 0;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    font-weight: 600;
+    padding: 0 6px;
+    border-left: rgb(233 233 233) 1px solid;
+    background-color: unset;
+    cursor: pointer;
+    transition: all .2s ease-out;
+}
+div.input input[type="submit"]:hover {
+    background-color: rgb(221, 221, 221);
+    color: var(--white);
 }
